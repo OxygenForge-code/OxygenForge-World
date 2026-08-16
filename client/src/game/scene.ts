@@ -81,6 +81,7 @@ function createSelection(scene: Scene) {
   const selection = MeshBuilder.CreateBox("target-frame", { size: 1.035 }, scene);
   const material = new StandardMaterial("target-frame-material", scene);
   material.wireframe = true;
+  material.disableLighting = true;
   material.emissiveColor = Color3.FromHexString("#dca26f");
   material.alpha = 0.86;
   selection.material = material;

@@ -28,3 +28,10 @@
 - [x] Bazalt, toprak, çimen, kumtaşı, bakır, ahşap ve meşale için tileable texture setini üretmek.
 - [x] Texture'ları Babylon materyallerine bağlayıp uzak/eksik varlık durumunda güvenli renk yedeğini korumak.
 - [x] Mobil texture bellek kullanımını, kamera görünümünü ve yeni APK'yı doğrulamak.
+
+## Render ve HUD Görünürlüğü Düzeltmesi
+
+- [x] Siyah sahne sorununu texture yükleme ve WebGL materyal fallback'i açısından düzeltmek.
+- [x] Üst HUD için aç/kapat düğmesi eklemek.
+- [x] HUD gizliyken kamera, hareket ve aksiyon kontrollerini çalışır tutmak.
+- [x] Mobil görünümü, render hatalarını ve güncellenmiş APK'yı doğrulamak.

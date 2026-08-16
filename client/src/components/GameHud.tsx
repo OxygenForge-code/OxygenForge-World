@@ -4,7 +4,7 @@
  */
 
 import { useEffect, useRef, useState } from "react";
-import { Pickaxe, Plus, ChevronUp, Crosshair, Backpack, Heart, Zap, SlidersHorizontal } from "lucide-react";
+import { Pickaxe, Plus, ChevronUp, Crosshair, Backpack, Heart, Zap, SlidersHorizontal, Eye, EyeOff } from "lucide-react";
 import { HUD_EVENT, type HudSnapshot, sendInput } from "@/game/GameEvents";
 
 const INITIAL_HUD: HudSnapshot = {
@@ -34,6 +34,7 @@ export function GameHud() {
   const [hud, setHud] = useState(INITIAL_HUD);
   const demo = new URLSearchParams(window.location.search).has("demo");
   const [started, setStarted] = useState(() => demo);
+  const [topBarVisible, setTopBarVisible] = useState(true);
   const [isPaused, setPaused] = useState(false);
   const [hintOpen, setHintOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -129,9 +130,11 @@ export function GameHud() {
         <div className="strip-actions">
           <button type="button" aria-label="Yardım" onClick={() => setHintOpen((open) => !open)}><Crosshair size={16} /></button>
           <button type="button" aria-label="Görüş ayarları" onClick={() => setSettingsOpen((open) => !open)}><SlidersHorizontal size={16} /></button>
+          <button type="button" aria-label="Üst barı gizle" onClick={() => setTopBarVisible(false)}><EyeOff size={16} /></button>
           <button type="button" aria-label="Oyunu duraklat" onClick={() => setPaused((paused) => !paused)}><span className="pause-bars" /></button>
         </div>
       </header>
+      {!topBarVisible && <button type="button" className="show-top-bar hud-interactive" aria-label="Üst barı göster" onClick={() => setTopBarVisible(true)}><Eye size={17} /></button>}
 
       <aside className="vitals-panel">
         <div className="vital"><Heart size={14} fill="currentColor" /><span>{hud.health}/5</span><i><em style={{ width: `${hud.health * 20}%` }} /></i></div>

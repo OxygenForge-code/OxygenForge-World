@@ -22,6 +22,8 @@ const ACTIVE_RADIUS = 2;
 const MAX_HEIGHT = 12;
 const WORLD_SEED = 734_291;
 const SAVE_KEY = "oxygenforge-world-edits-v2";
+// Remote generated textures remain opt-in until bundled into the APK; the color fallback keeps WebView rendering visible.
+const USE_REMOTE_TEXTURES = false;
 
 const FACES: Face[] = [
   { direction: [0, 0, -1], corners: [[0, 0, 0], [1, 0, 0], [1, 1, 0], [0, 1, 0]] },
@@ -86,20 +88,22 @@ export class GameWorld {
   constructor(private readonly scene: Scene) {
     (Object.keys(COLORS) as SolidBlock[]).forEach((type) => {
       const material = new StandardMaterial(`mat-${type}`, scene);
-      material.diffuseColor = Color3.FromHexString(COLORS[type]);
-      const textureUrl = TEXTURES[type];
+      const blockColor = Color3.FromHexString(COLORS[type]);
+      material.diffuseColor = blockColor;
+      material.disableLighting = true;
+      material.emissiveColor = blockColor;
+      const textureUrl = USE_REMOTE_TEXTURES ? TEXTURES[type] : undefined;
       if (textureUrl) {
         const texture = new Texture(textureUrl, scene, true, false);
         texture.uScale = 1.2;
         texture.vScale = 1.2;
         material.diffuseTexture = texture;
         // Keep mobile WebGL texture rendering stable on devices with limited shader support.
-        material.disableLighting = true;
         material.emissiveColor = Color3.White();
       }
       material.specularColor = Color3.Black();
       material.ambientColor = Color3.FromHexString("#2b2522");
-      if (!textureUrl) material.emissiveColor = type === "copper" ? Color3.FromHexString("#1b0904") : Color3.Black();
+
       this.materials.set(type, material);
     });
   }
