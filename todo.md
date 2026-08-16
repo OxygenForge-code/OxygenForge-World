@@ -9,4 +9,14 @@
 - [x] Babylon.js tabanlı voxel dünya, envanter, blok kırma/yerleştirme ve kalıcı kayıt döngüsünü geliştirmek.
 - [x] Mobil arayüz, saha HUD'u, başlatma deneyimi ve yerel kayıt desteğini eklemek.
 - [x] Android debug APK derlemesini ve yatay telefon görünümünü doğrulamak.
-- [ ] Kaynak depoya başlangıç sürümünü göndermek ve yayınlama yönergelerini hazırlamak.
+- [x] Kaynak depoya başlangıç sürümünü göndermek ve yayınlama yönergelerini hazırlamak.
+
+## Kamera ve Sonsuz Chunk Geliştirmesi
+
+- [x] Yatay kamera sürükleme yönünü doğal sola/sağa eşleştirmek.
+- [x] Seed tabanlı chunk koordinatlama ve deterministik arazi üretimini tasarlamak.
+- [x] Oyuncu çevresinde görünür chunk yükleme, uzak chunk boşaltma ve mesh güncelleme akışını eklemek.
+- [x] Chunk sınırlarında hareket, hedefleme, blok kırma/yerleştirme ve yerel kayıt davranışını doğrulamak.
+- [x] Güncellenmiş Android APK'yı üretmek ve son proje sürümünü kaydetmek.
+
+> Not: Sonsuz dünya, belleğe aynı anda sınırsız geometri yüklemek yerine oyuncu çevresindeki chunk'ları dinamik olarak yükleyip uzak chunk'ları boşaltan seed tabanlı bir dünya olarak uygulanacaktır.

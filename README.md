@@ -1,10 +1,10 @@
 # OxygenForge World
 
-OxygenForge World, Android için APK olarak paketlenebilen; Babylon.js, React ve Capacitor kullanan mobil öncelikli bir voxel keşif oyunudur. Oyuncu katmanlı bazalt arazide ilerler, hedef blokları kırar, malzeme toplar ve hızlı çubuktan seçtiği blokları tekrar dünyaya yerleştirir.
+OxygenForge World, Android için APK olarak paketlenebilen; Babylon.js, React ve Capacitor kullanan mobil öncelikli bir voxel keşif oyunudur. Oyuncu katmanlı bazalt arazide ilerler, hedef blokları kırar, malzeme toplar ve hızlı çubuktan seçtiği blokları tekrar dünyaya yerleştirir. Dünya, sabit bir kenar yerine seed tabanlı sonsuz chunk akışıyla ilerler; oyuncu çevresindeki 5×5 çalışma penceresi korunur ve uzak chunk'lar bellekten boşaltılır.
 
 ## Oynanış
 
-Oyun yatay ekran için tasarlanmıştır. Sol taraftaki analog ped hareketi, sağ boş alan kamera bakışını yönetir. Sağ alttaki kazma hedef bloğu kırar; `+` düğmesi seçili malzemeyi hedef yüzün yanına yerleştirir. Küçük üst düğme zıplama işlevini verir. Masaüstü doğrulamasında `WASD`, fare, `Boşluk`, sol tıklama, sağ tıklama, `F` ve `E` eş değer kontrollerdir.
+Oyun yatay ekran için tasarlanmıştır. Sol taraftaki analog ped hareketi, sağ boş alan kamera bakışını yönetir; parmağı sola sürüklemek sola, sağa sürüklemek sağa bakar. Sağ alttaki kazma hedef bloğu kırar; `+` düğmesi seçili malzemeyi hedef yüzün yanına yerleştirir. Küçük üst düğme zıplama işlevini verir. Masaüstü doğrulamasında `WASD`, fare, `Boşluk`, sol tıklama, sağ tıklama, `F` ve `E` eş değer kontrollerdir.
 
 | Komut | Amaç |
 | --- | --- |
@@ -13,6 +13,10 @@ Oyun yatay ekran için tasarlanmıştır. Sol taraftaki analog ped hareketi, sa�
 | `pnpm build` | Üretim web paketini üretir. |
 | `pnpm cap:sync` | Web paketini Android projesine kopyalar. |
 | `pnpm apk:debug` | Android debug APK üretimini başlatır. |
+
+## Sonsuz Chunk Dünyası
+
+Dünya seed'i `734291` olarak sabitlenmiştir; aynı dünya koordinatı her açılışta aynı yükseklik, katman ve cevher dağılımını üretir. Chunk boyutu 12×12 hücre, etkin yarıçap iki chunk'tır. Bu, teorik olarak sonsuz keşif sağlar ancak mobil bellekte yalnızca oyuncuya yakın geometri tutulur. Blok düzenlemeleri chunk boşaltılıp tekrar yüklendiğinde yerel kayıttan geri uygulanır.
 
 ## Android APK
 

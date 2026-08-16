@@ -5,8 +5,8 @@
 ### 1. Parçalı prosedürel voxel arazi
 
 - **Neden yalıtıldı:** Mobilde görünür dünya hacmini, işleme çağrılarını ve bellek kullanımını aynı anda kontrol etmek gerekir; tek parça küp üretimi hızlı biçimde FPS düşüşüne yol açar.
-- **Yaklaşım:** Kamera çevresinde sınırlı yarıçaplı, deterministik yükseklik haritasıyla beslenen küçük arazi parçaları üretilecek; görünmeyen veya uzak parçalar atılacak ve yüzeyde görünmeyen blok yüzleri çizilmeyecek.
-- **Doğrula:** Başlangıçta ve keşif sırasında bitişik arazi parçaları arasında boşluk bulunmamalı; demo kamerası dünya üzerinde ilerlerken dünya yeniden üretilmeli ve mobil görünümde ritim bozulmamalıdır.
+- **Yaklaşım:** Dünya seed'iyle 12×12 hücrelik chunk'lar deterministik olarak üretilecek; oyuncu çevresindeki 5×5 chunk çalışma penceresi tutulacak, uzak chunk'lar bellekten boşaltılacak ve yalnızca açık yüzler blok türü başına birleşik mesh'e yazılacak.
+- **Doğrula:** Oyuncu chunk sınırlarını geçerken bitişik chunk'lar arasında boşluk bulunmamalı; seed aynı koordinatta aynı araziyi üretmeli; demo kamerası ilerlerken çalışma penceresi yenilenmeli ve mobil görünümde ritim bozulmamalıdır.
 
 ### 2. Dokunmatik hareket ve kamera denetimi
 

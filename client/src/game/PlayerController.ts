@@ -44,7 +44,8 @@ export class PlayerController {
       this.yaw += delta * 0.06;
       this.pitch = -0.84 + Math.sin(this.autopilotTime * 0.6) * 0.025;
     } else {
-      this.yaw -= look.x * 0.0064;
+      // Finger movement follows the camera: drag left looks left, drag right looks right.
+      this.yaw += look.x * 0.0064;
       this.pitch = Math.max(-1.2, Math.min(1.1, this.pitch - look.y * 0.0054));
     }
 

@@ -44,6 +44,7 @@ export async function createGameScene(engine: Engine, canvas: HTMLCanvasElement)
   scene.onBeforeRenderObservable.add(() => {
     const delta = Math.min(scene.getEngine().getDeltaTime() / 1000, 0.05);
     player.update(delta, demo);
+    world.updateAround(player.camera.position);
     const selected = input.takeSelected();
     if (selected !== null) state.setSelected(selected);
 
