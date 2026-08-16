@@ -35,3 +35,11 @@
 - [x] Üst HUD için aç/kapat düğmesi eklemek.
 - [x] HUD gizliyken kamera, hareket ve aksiyon kontrollerini çalışır tutmak.
 - [x] Mobil görünümü, render hatalarını ve güncellenmiş APK'yı doğrulamak.
+
+## Yerel APK Texture Paketleme
+
+- [x] Üretilen texture dosyalarını proje dışı asset alanından Android bundle akışına almak.
+- [x] Babylon texture yollarını uzak URL yerine yerel Capacitor asset yollarına çevirmek.
+- [x] Android APK içinde tüm texture dosyalarının gerçekten bulunduğunu doğrulamak.
+- [x] Çevrimdışı WebView ve mobil görünümde kaplamaları kontrol etmek.
+- [x] Yerel texture içeren yeni APK'yı üretmek ve son sürümü kaydetmek.

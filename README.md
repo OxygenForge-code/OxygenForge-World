@@ -16,7 +16,7 @@ Oyun yatay ekran için tasarlanmıştır. Sol taraftaki analog ped hareketi, sa�
 
 ## FOV ve Texture Seti
 
-Kamera pitch aralığı aşağı yönde genişletilmiştir; saha operatörü zemini daha rahat inceleyebilir. FOV paneli varsayılan 0.94 radyan değerini 0.72–1.35 arasında ayarlar ve tercihi `localStorage` içinde saklar. Bazalt, toprak/çimen, kumtaşı, bakır cevheri ve ahşap için tileable texture materyalleri bağlanmıştır; üretim varlıkları yüklenemezse mevcut jeolojik renkler güvenli yedek olarak kalır.
+Kamera pitch aralığı aşağı yönde genişletilmiştir; saha operatörü zemini daha rahat inceleyebilir. FOV paneli varsayılan 0.94 radyan değerini 0.72–1.35 arasında ayarlar ve tercihi `localStorage` içinde saklar. Bazalt, toprak/çimen, kumtaşı, bakır cevheri ve ahşap için 256×256 tileable texture materyalleri `client/public/textures/` altında tutulur ve Capacitor tarafından doğrudan APK asset'lerine kopyalanır. Oyun artık uzak texture URL'si kullanmaz; renk fallback'i yalnızca beklenmeyen yerel dosya hatalarına karşı son güvenlik katmanıdır.
 
 ## Sonsuz Chunk Dünyası
 
@@ -30,7 +30,7 @@ Android uygulama kimliği `com.oxygenforge.world`, minimum SDK düzeyi 24 ve hed
 ANDROID_HOME=/opt/android-sdk ANDROID_SDK_ROOT=/opt/android-sdk pnpm apk:debug
 ```
 
-Derlenmiş debug APK, `android/app/build/outputs/apk/debug/app-debug.apk` konumunda oluşturulur. Bu paket bir **debug APK** olduğundan Google Play dağıtımı için üretim imzalama anahtarı ile yeniden paketlenmelidir.
+Derlenmiş debug APK, `android/app/build/outputs/apk/debug/app-debug.apk` konumunda oluşturulur. `android/app/src/main/assets/public/textures/` içinde yedi yerel texture dosyası bulunur; bu nedenle oyun kapalı/çevrimdışı WebView'da da kaplama varlıklarına erişebilir. Bu paket bir **debug APK** olduğundan Google Play dağıtımı için üretim imzalama anahtarı ile yeniden paketlenmelidir.
 
 ## Mimari
 

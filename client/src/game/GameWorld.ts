@@ -22,8 +22,8 @@ const ACTIVE_RADIUS = 2;
 const MAX_HEIGHT = 12;
 const WORLD_SEED = 734_291;
 const SAVE_KEY = "oxygenforge-world-edits-v2";
-// Remote generated textures remain opt-in until bundled into the APK; the color fallback keeps WebView rendering visible.
-const USE_REMOTE_TEXTURES = false;
+// All texture bytes are bundled under client/public/textures and copied by Capacitor into the APK.
+const USE_LOCAL_TEXTURES = true;
 
 const FACES: Face[] = [
   { direction: [0, 0, -1], corners: [[0, 0, 0], [1, 0, 0], [1, 1, 0], [0, 1, 0]] },
@@ -35,12 +35,12 @@ const FACES: Face[] = [
 ];
 
 const TEXTURES: Partial<Record<SolidBlock, string>> = {
-  soil: "/manus-storage/oxygenforge-texture-soil-grass_0ed7ea25.png",
-  grass: "/manus-storage/oxygenforge-texture-soil-grass_0ed7ea25.png",
-  basalt: "/manus-storage/oxygenforge-texture-basalt_e368b662.png",
-  sandstone: "/manus-storage/oxygenforge-texture-sandstone_0a7a3abb.png",
-  copper: "/manus-storage/oxygenforge-texture-copper_b6eaa4da.png",
-  wood: "/manus-storage/oxygenforge-texture-wood_b614e06d.png",
+  soil: "textures/soil.png",
+  grass: "textures/grass.png",
+  basalt: "textures/basalt.png",
+  sandstone: "textures/sandstone.png",
+  copper: "textures/copper.png",
+  wood: "textures/wood.png",
 };
 
 const COLORS: Record<SolidBlock, string> = {
@@ -92,7 +92,7 @@ export class GameWorld {
       material.diffuseColor = blockColor;
       material.disableLighting = true;
       material.emissiveColor = blockColor;
-      const textureUrl = USE_REMOTE_TEXTURES ? TEXTURES[type] : undefined;
+      const textureUrl = USE_LOCAL_TEXTURES ? TEXTURES[type] : undefined;
       if (textureUrl) {
         const texture = new Texture(textureUrl, scene, true, false);
         texture.uScale = 1.2;
