@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">OxygenForge World</string>
+    <string name="title_activity_main">OxygenForge World</string>
+    <string name="package_name">com.oxygenforge.world</string>
+    <string name="custom_url_scheme">com.oxygenforge.world</string>
+</resources>
