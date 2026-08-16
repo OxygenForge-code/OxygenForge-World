@@ -7,6 +7,7 @@
 import { Color3 } from "@babylonjs/core/Maths/math.color";
 import { Vector3 } from "@babylonjs/core/Maths/math.vector";
 import { StandardMaterial } from "@babylonjs/core/Materials/standardMaterial";
+import { Texture } from "@babylonjs/core/Materials/Textures/texture";
 import { Mesh } from "@babylonjs/core/Meshes/mesh";
 import { VertexData } from "@babylonjs/core/Meshes/mesh.vertexData";
 import type { Scene } from "@babylonjs/core/scene";
@@ -30,6 +31,15 @@ const FACES: Face[] = [
   { direction: [0, -1, 0], corners: [[0, 0, 1], [1, 0, 1], [1, 0, 0], [0, 0, 0]] },
   { direction: [0, 1, 0], corners: [[0, 1, 0], [1, 1, 0], [1, 1, 1], [0, 1, 1]] },
 ];
+
+const TEXTURES: Partial<Record<SolidBlock, string>> = {
+  soil: "/manus-storage/oxygenforge-texture-soil-grass_0ed7ea25.png",
+  grass: "/manus-storage/oxygenforge-texture-soil-grass_0ed7ea25.png",
+  basalt: "/manus-storage/oxygenforge-texture-basalt_e368b662.png",
+  sandstone: "/manus-storage/oxygenforge-texture-sandstone_0a7a3abb.png",
+  copper: "/manus-storage/oxygenforge-texture-copper_b6eaa4da.png",
+  wood: "/manus-storage/oxygenforge-texture-wood_b614e06d.png",
+};
 
 const COLORS: Record<SolidBlock, string> = {
   soil: "#9b5d3b",
@@ -77,9 +87,19 @@ export class GameWorld {
     (Object.keys(COLORS) as SolidBlock[]).forEach((type) => {
       const material = new StandardMaterial(`mat-${type}`, scene);
       material.diffuseColor = Color3.FromHexString(COLORS[type]);
+      const textureUrl = TEXTURES[type];
+      if (textureUrl) {
+        const texture = new Texture(textureUrl, scene, true, false);
+        texture.uScale = 1.2;
+        texture.vScale = 1.2;
+        material.diffuseTexture = texture;
+        // Keep mobile WebGL texture rendering stable on devices with limited shader support.
+        material.disableLighting = true;
+        material.emissiveColor = Color3.White();
+      }
       material.specularColor = Color3.Black();
       material.ambientColor = Color3.FromHexString("#2b2522");
-      material.emissiveColor = type === "copper" ? Color3.FromHexString("#1b0904") : Color3.Black();
+      if (!textureUrl) material.emissiveColor = type === "copper" ? Color3.FromHexString("#1b0904") : Color3.Black();
       this.materials.set(type, material);
     });
   }

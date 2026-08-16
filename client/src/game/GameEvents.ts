@@ -28,7 +28,8 @@ export type InputMessage =
   | { kind: "move"; x: number; y: number }
   | { kind: "look"; x: number; y: number }
   | { kind: "action"; action: "break" | "place" | "jump" | "start" }
-  | { kind: "select"; index: number };
+  | { kind: "select"; index: number }
+  | { kind: "settings"; fov: number };
 
 export const INPUT_EVENT = "oxygenforge:input";
 export const HUD_EVENT = "oxygenforge:hud";

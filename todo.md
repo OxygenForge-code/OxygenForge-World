@@ -20,3 +20,11 @@
 - [x] Güncellenmiş Android APK'yı üretmek ve son proje sürümünü kaydetmek.
 
 > Not: Sonsuz dünya, belleğe aynı anda sınırsız geometri yüklemek yerine oyuncu çevresindeki chunk'ları dinamik olarak yükleyip uzak chunk'ları boşaltan seed tabanlı bir dünya olarak uygulanacaktır.
+
+## Kamera, FOV ve Texture Geliştirmesi
+
+- [x] Kameranın aşağı bakış sınırını mobil keşif için genişletmek.
+- [x] FOV ayarını oyun içi ayarlar paneline ve yerel kayda bağlamak.
+- [x] Bazalt, toprak, çimen, kumtaşı, bakır, ahşap ve meşale için tileable texture setini üretmek.
+- [x] Texture'ları Babylon materyallerine bağlayıp uzak/eksik varlık durumunda güvenli renk yedeğini korumak.
+- [x] Mobil texture bellek kullanımını, kamera görünümünü ve yeni APK'yı doğrulamak.

@@ -4,7 +4,7 @@
  */
 
 import { useEffect, useRef, useState } from "react";
-import { Pickaxe, Plus, ChevronUp, Crosshair, Backpack, Heart, Zap } from "lucide-react";
+import { Pickaxe, Plus, ChevronUp, Crosshair, Backpack, Heart, Zap, SlidersHorizontal } from "lucide-react";
 import { HUD_EVENT, type HudSnapshot, sendInput } from "@/game/GameEvents";
 
 const INITIAL_HUD: HudSnapshot = {
@@ -36,6 +36,11 @@ export function GameHud() {
   const [started, setStarted] = useState(() => demo);
   const [isPaused, setPaused] = useState(false);
   const [hintOpen, setHintOpen] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [fov, setFov] = useState(() => {
+    const stored = Number(window.localStorage.getItem("oxygenforge:fov"));
+    return Number.isFinite(stored) && stored >= 0.72 && stored <= 1.35 ? stored : 0.94;
+  });
   const lookRef = useRef<{ id: number; x: number; y: number } | null>(null);
   const stickRef = useRef<{ id: number; originX: number; originY: number } | null>(null);
   const [stick, setStick] = useState({ x: 0, y: 0 });
@@ -46,9 +51,17 @@ export function GameHud() {
     return () => window.removeEventListener(HUD_EVENT, onHud);
   }, []);
 
+  const updateFov = (value: number) => {
+    const next = Math.max(0.72, Math.min(1.35, value));
+    setFov(next);
+    window.localStorage.setItem("oxygenforge:fov", String(next));
+    sendInput({ kind: "settings", fov: next });
+  };
+
   const begin = () => {
     setStarted(true);
     sendInput({ kind: "action", action: "start" });
+    sendInput({ kind: "settings", fov });
   };
 
   const onLookDown = (event: React.PointerEvent<HTMLDivElement>) => {
@@ -115,6 +128,7 @@ export function GameHud() {
         <div className="field-readout"><span>{hud.biome}</span><b>{hud.coords}</b></div>
         <div className="strip-actions">
           <button type="button" aria-label="Yardım" onClick={() => setHintOpen((open) => !open)}><Crosshair size={16} /></button>
+          <button type="button" aria-label="Görüş ayarları" onClick={() => setSettingsOpen((open) => !open)}><SlidersHorizontal size={16} /></button>
           <button type="button" aria-label="Oyunu duraklat" onClick={() => setPaused((paused) => !paused)}><span className="pause-bars" /></button>
         </div>
       </header>
@@ -157,6 +171,7 @@ export function GameHud() {
       </nav>
 
       {hintOpen && <div className="help-card hud-interactive"><b>SAHA KONTROLLERİ</b><p>Sol pedle ilerle. Sağ alanda sürükleyerek bak. Kazmayı basılı tutmadan kullanabilir, + ile seçili malzemeyi yerleştirebilirsin.</p></div>}
+      {settingsOpen && <div className="settings-card hud-interactive"><div className="settings-heading"><b>GÖRÜŞ AYARLARI</b><span>{Math.round(fov * 57.3)}°</span></div><label htmlFor="fov-range">FOV <input id="fov-range" type="range" min="0.72" max="1.35" step="0.01" value={fov} onChange={(event) => updateFov(Number(event.target.value))} /></label><small>Dar alan daha odaklı, geniş alan daha fazla çevre gösterir.</small></div>}
       {isPaused && <div className="pause-card hud-interactive"><span>SEFER DURAKLATILDI</span><button type="button" onClick={() => setPaused(false)}>DEVAM ET</button></div>}
 
       {!started && <div className="launch-screen hud-interactive">

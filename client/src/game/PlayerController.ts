@@ -27,7 +27,9 @@ export class PlayerController {
 
   update(delta: number, demo: boolean) {
     const look = this.input.takeLook();
+    const fov = this.input.takeFov();
     const movement = this.input.movement();
+    if (fov !== null) this.camera.fov = Math.max(0.72, Math.min(1.35, fov));
     let moveX = movement.x;
     let moveY = movement.y;
 
@@ -46,7 +48,8 @@ export class PlayerController {
     } else {
       // Finger movement follows the camera: drag left looks left, drag right looks right.
       this.yaw += look.x * 0.0064;
-      this.pitch = Math.max(-1.2, Math.min(1.1, this.pitch - look.y * 0.0054));
+      // Let the field operator inspect the ground without flipping the horizon.
+      this.pitch = Math.max(-1.52, Math.min(1.1, this.pitch - look.y * 0.0054));
     }
 
     const forward = new Vector3(Math.sin(this.yaw), 0, Math.cos(this.yaw));

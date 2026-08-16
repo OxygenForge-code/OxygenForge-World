@@ -4,7 +4,7 @@ OxygenForge World, Android için APK olarak paketlenebilen; Babylon.js, React ve
 
 ## Oynanış
 
-Oyun yatay ekran için tasarlanmıştır. Sol taraftaki analog ped hareketi, sağ boş alan kamera bakışını yönetir; parmağı sola sürüklemek sola, sağa sürüklemek sağa bakar. Sağ alttaki kazma hedef bloğu kırar; `+` düğmesi seçili malzemeyi hedef yüzün yanına yerleştirir. Küçük üst düğme zıplama işlevini verir. Masaüstü doğrulamasında `WASD`, fare, `Boşluk`, sol tıklama, sağ tıklama, `F` ve `E` eş değer kontrollerdir.
+Oyun yatay ekran için tasarlanmıştır. Sol taraftaki analog ped hareketi, sağ boş alan kamera bakışını yönetir; parmağı sola sürüklemek sola, sağa sürüklemek sağa bakar. Sağ alttaki kazma hedef bloğu kırar; `+` düğmesi seçili malzemeyi hedef yüzün yanına yerleştirir. Üst şeritteki sürgü simgesi FOV ayarını açar; değer 0.72–1.35 aralığında yerel olarak saklanır. Küçük üst düğme zıplama işlevini verir. Masaüstü doğrulamasında `WASD`, fare, `Boşluk`, sol tıklama, sağ tıklama, `F` ve `E` eş değer kontrollerdir.
 
 | Komut | Amaç |
 | --- | --- |
@@ -13,6 +13,10 @@ Oyun yatay ekran için tasarlanmıştır. Sol taraftaki analog ped hareketi, sa�
 | `pnpm build` | Üretim web paketini üretir. |
 | `pnpm cap:sync` | Web paketini Android projesine kopyalar. |
 | `pnpm apk:debug` | Android debug APK üretimini başlatır. |
+
+## FOV ve Texture Seti
+
+Kamera pitch aralığı aşağı yönde genişletilmiştir; saha operatörü zemini daha rahat inceleyebilir. FOV paneli varsayılan 0.94 radyan değerini 0.72–1.35 arasında ayarlar ve tercihi `localStorage` içinde saklar. Bazalt, toprak/çimen, kumtaşı, bakır cevheri ve ahşap için tileable texture materyalleri bağlanmıştır; üretim varlıkları yüklenemezse mevcut jeolojik renkler güvenli yedek olarak kalır.
 
 ## Sonsuz Chunk Dünyası
 
