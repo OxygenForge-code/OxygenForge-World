@@ -3,7 +3,7 @@
  * raw key checks, so touch and desktop preview follow the same gameplay contract.
  */
 
-import { INPUT_EVENT, type InputMessage } from "./GameEvents";
+import { INPUT_EVENT, type InputMessage, type RuntimeSettings } from "./GameEvents";
 
 export class InputManager {
   private keys = new Set<string>();
@@ -13,7 +13,7 @@ export class InputManager {
   private placeQueued = false;
   private jumpQueued = false;
   private selected: number | null = null;
-  private fov: number | null = null;
+  private settings: RuntimeSettings = {};
   private readonly onKeyDown = (event: KeyboardEvent) => this.keys.add(event.key.toLowerCase());
   private readonly onKeyUp = (event: KeyboardEvent) => this.keys.delete(event.key.toLowerCase());
   private readonly onInput = (event: Event) => {
@@ -30,7 +30,7 @@ export class InputManager {
       if (detail.action === "jump") this.jumpQueued = true;
     }
     if (detail.kind === "select") this.selected = detail.index;
-    if (detail.kind === "settings") this.fov = detail.fov;
+    if (detail.kind === "settings") this.settings = { ...this.settings, ...detail.settings };
   };
   private readonly onPointerDown = (event: PointerEvent) => {
     if (event.button === 0) this.breakQueued = true;
@@ -83,9 +83,9 @@ export class InputManager {
     return result;
   }
 
-  takeFov() {
-    const result = this.fov;
-    this.fov = null;
+  takeSettings() {
+    const result = this.settings;
+    this.settings = {};
     return result;
   }
 

@@ -18,7 +18,7 @@ type Face = { direction: [number, number, number]; corners: [number, number, num
 type MeshData = { positions: number[]; normals: number[]; indices: number[]; uvs: number[] };
 
 const CHUNK_SIZE = 12;
-const ACTIVE_RADIUS = 2;
+const DEFAULT_ACTIVE_RADIUS = 2;
 const MAX_HEIGHT = 12;
 const WORLD_SEED = 734_291;
 const SAVE_KEY = "oxygenforge-world-edits-v2";
@@ -84,6 +84,9 @@ export class GameWorld {
   private readonly activeChunks = new Map<string, { cx: number; cz: number }>();
   private readonly meshes = new Map<SolidBlock, Mesh>();
   private readonly materials = new Map<SolidBlock, StandardMaterial>();
+  private activeRadius = DEFAULT_ACTIVE_RADIUS;
+  private lastCenterId = "";
+  private rebuildQueued = false;
 
   constructor(private readonly scene: Scene) {
     (Object.keys(COLORS) as SolidBlock[]).forEach((type) => {
@@ -95,8 +98,9 @@ export class GameWorld {
       const textureUrl = USE_LOCAL_TEXTURES ? TEXTURES[type] : undefined;
       if (textureUrl) {
         const texture = new Texture(textureUrl, scene, true, false);
-        texture.uScale = 1.2;
-        texture.vScale = 1.2;
+        texture.uScale = 1;
+        texture.vScale = 1;
+        texture.anisotropicFilteringLevel = 1;
         material.diffuseTexture = texture;
         // Keep mobile WebGL texture rendering stable on devices with limited shader support.
         material.emissiveColor = Color3.White();
@@ -116,11 +120,14 @@ export class GameWorld {
   updateAround(position: Vector3) {
     const centerX = floorDiv(Math.floor(position.x), CHUNK_SIZE);
     const centerZ = floorDiv(Math.floor(position.z), CHUNK_SIZE);
+    const centerId = chunkKey(centerX, centerZ);
+    if (centerId === this.lastCenterId) return;
+    this.lastCenterId = centerId;
     const desired = new Set<string>();
 
     let changed = false;
-    for (let dx = -ACTIVE_RADIUS; dx <= ACTIVE_RADIUS; dx += 1) {
-      for (let dz = -ACTIVE_RADIUS; dz <= ACTIVE_RADIUS; dz += 1) {
+    for (let dx = -this.activeRadius; dx <= this.activeRadius; dx += 1) {
+      for (let dz = -this.activeRadius; dz <= this.activeRadius; dz += 1) {
         const cx = centerX + dx;
         const cz = centerZ + dz;
         const id = chunkKey(cx, cz);
@@ -137,7 +144,14 @@ export class GameWorld {
       changed = true;
     });
 
-    if (changed) this.rebuildMeshes();
+    if (changed) this.queueMeshRebuild();
+  }
+
+  setViewDistance(radius: number) {
+    const next = Math.max(1, Math.min(2, Math.round(radius)));
+    if (next === this.activeRadius) return;
+    this.activeRadius = next;
+    this.lastCenterId = "";
   }
 
   getBlock(x: number, y: number, z: number): BlockType {
@@ -182,7 +196,7 @@ export class GameWorld {
     if (type === "air") return null;
     this.blocks.delete(blockKey(hit.x, hit.y, hit.z));
     this.rememberEdit(blockKey(hit.x, hit.y, hit.z), "air");
-    this.rebuildMeshes();
+    this.queueMeshRebuild();
     return type as SolidBlock;
   }
 
@@ -195,7 +209,7 @@ export class GameWorld {
     if (Math.abs(playerPosition.x - (x + 0.5)) < 0.75 && Math.abs(playerPosition.z - (z + 0.5)) < 0.75) return false;
     this.blocks.set(blockKey(x, y, z), type);
     this.rememberEdit(blockKey(x, y, z), type);
-    this.rebuildMeshes();
+    this.queueMeshRebuild();
     return true;
   }
 
@@ -254,6 +268,15 @@ export class GameWorld {
       if (x < minX || x >= minX + CHUNK_SIZE || z < minZ || z >= minZ + CHUNK_SIZE) return;
       if (type === "air") this.blocks.delete(id);
       else this.blocks.set(id, type as SolidBlock);
+    });
+  }
+
+  private queueMeshRebuild() {
+    if (this.rebuildQueued) return;
+    this.rebuildQueued = true;
+    window.requestAnimationFrame(() => {
+      this.rebuildQueued = false;
+      this.rebuildMeshes();
     });
   }
 

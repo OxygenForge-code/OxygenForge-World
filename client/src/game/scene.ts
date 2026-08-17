@@ -17,7 +17,7 @@ import { GameWorld, type VoxelHit } from "./GameWorld";
 import { InputManager } from "./InputManager";
 import { PlayerController } from "./PlayerController";
 
-export type GameHandle = { scene: Scene; dispose: () => void };
+export type GameHandle = { scene: Scene; setViewDistance: (radius: number) => void; dispose: () => void };
 
 export async function createGameScene(engine: Engine, canvas: HTMLCanvasElement): Promise<GameHandle> {
   const scene = new Scene(engine);
@@ -68,6 +68,7 @@ export async function createGameScene(engine: Engine, canvas: HTMLCanvasElement)
 
   return {
     scene,
+    setViewDistance: (radius) => world.setViewDistance(radius),
     dispose: () => {
       input.dispose();
       selection.dispose();

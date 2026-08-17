@@ -43,3 +43,11 @@
 - [x] Android APK içinde tüm texture dosyalarının gerçekten bulunduğunu doğrulamak.
 - [x] Çevrimdışı WebView ve mobil görünümde kaplamaları kontrol etmek.
 - [x] Yerel texture içeren yeni APK'yı üretmek ve son sürümü kaydetmek.
+
+## Kalite, Performans ve Ayarlar Güncellemesi
+
+- [x] Yerel voxel texture setini daha belirgin malzeme ayrımlarıyla iyileştirmek.
+- [x] Chunk mesh yeniden oluşturma ve cihaz piksel oranı maliyetlerini mobil performans için azaltmak.
+- [x] Grafik kalitesi, çözünürlük ölçeği, FPS limiti, görüş mesafesi, FOV, hassasiyet ve HUD tercihlerini içeren ayarlar eklemek.
+- [x] Üst HUD gizleme düğmesinin görünürlük durumunu gerçek header bileşenine bağlamak.
+- [x] Ayarlar, performans profilleri, texture görünümü ve yeni APK'yı doğrulamak.

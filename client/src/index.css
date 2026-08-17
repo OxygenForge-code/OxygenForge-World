@@ -77,3 +77,21 @@ button { font: inherit; }
 .field-strip.top-bar-hidden { display: none; }
 .show-top-bar { position: absolute; z-index: 8; top: 14px; right: 18px; width: 34px; height: 34px; display: grid; place-items: center; border: 1px solid rgba(229,203,167,.35); color: #f0d8b5; background: rgba(20,24,20,.8); box-shadow: 0 6px 18px rgba(0,0,0,.25); cursor: pointer; backdrop-filter: blur(8px); }
 @media (max-width: 760px) and (orientation: landscape) { .show-top-bar { top: 7px; right: 9px; width: 30px; height: 30px; } }
+
+/* Jeolojik Sefer Günlüğü — dense but thumb-readable mobile settings console. */
+.game-hud { --hud-opacity: .94; }
+.field-strip, .vitals-panel, .target-readout, .field-note, .hotbar { opacity: var(--hud-opacity); }
+.settings-card { display: grid; gap: 10px; width: min(336px, calc(100vw - 36px)); max-height: calc(100vh - 96px); overflow-y: auto; text-align: left; }
+.settings-card label { gap: 5px; }
+.settings-presets, .settings-grid { display: grid; gap: 6px; }
+.settings-presets { grid-template-columns: repeat(3, 1fr); }
+.settings-presets button, .settings-reset { border: 1px solid rgba(215,174,120,.35); background: rgba(49,44,35,.82); color: #f0d8b5; padding: 7px 6px; font: 8px "IBM Plex Mono", monospace; letter-spacing: .08em; cursor: pointer; }
+.settings-presets button:active, .settings-reset:active { transform: scale(.97); }
+.settings-grid { grid-template-columns: repeat(3, 1fr); }
+.settings-grid label { min-width: 0; font-size: 7px; }
+.settings-grid select { width: 100%; border: 1px solid rgba(215,174,120,.32); background: #272923; color: #f1dfca; padding: 6px 4px; font: 8px "IBM Plex Mono", monospace; }
+.settings-toggle { display: flex !important; grid-template-columns: auto 1fr; align-items: center; color: #e5ceb0 !important; cursor: pointer; }
+.settings-toggle input { accent-color: #b86032; }
+.settings-reset { display: inline-flex; align-items: center; justify-content: center; gap: 6px; border-color: rgba(184,96,50,.72); background: rgba(112,48,32,.55); }
+.reduced-motion *, .reduced-motion *::before, .reduced-motion *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
+@media (max-width: 760px) and (orientation: landscape) { .settings-card { top: 46px; right: 8px; width: min(292px, calc(100vw - 16px)); padding: 9px 10px; gap: 7px; } .settings-card small { font-size: 8px; } .settings-presets button, .settings-reset { padding: 6px 4px; font-size: 7px; } }

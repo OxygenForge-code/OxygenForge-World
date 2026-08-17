@@ -24,12 +24,20 @@ export interface HudSnapshot {
   inventory: InventorySlot[];
 }
 
+export interface RuntimeSettings {
+  fov?: number;
+  sensitivity?: number;
+  renderScale?: number;
+  fpsLimit?: number;
+  viewDistance?: number;
+}
+
 export type InputMessage =
   | { kind: "move"; x: number; y: number }
   | { kind: "look"; x: number; y: number }
   | { kind: "action"; action: "break" | "place" | "jump" | "start" }
   | { kind: "select"; index: number }
-  | { kind: "settings"; fov: number };
+  | { kind: "settings"; settings: RuntimeSettings };
 
 export const INPUT_EVENT = "oxygenforge:input";
 export const HUD_EVENT = "oxygenforge:hud";

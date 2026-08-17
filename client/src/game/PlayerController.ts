@@ -16,6 +16,7 @@ export class PlayerController {
   private verticalVelocity = 0;
   private autopilotTime = 0;
   private demoInitialized = false;
+  private sensitivity = 1;
 
   constructor(scene: Scene, private readonly world: GameWorld, private readonly input: InputManager) {
     const surface = world.getSurfaceY(10, 10);
@@ -27,9 +28,10 @@ export class PlayerController {
 
   update(delta: number, demo: boolean) {
     const look = this.input.takeLook();
-    const fov = this.input.takeFov();
+    const settings = this.input.takeSettings();
     const movement = this.input.movement();
-    if (fov !== null) this.camera.fov = Math.max(0.72, Math.min(1.35, fov));
+    if (typeof settings.fov === "number") this.camera.fov = Math.max(0.72, Math.min(1.35, settings.fov));
+    if (typeof settings.sensitivity === "number") this.sensitivity = Math.max(0.5, Math.min(1.8, settings.sensitivity));
     let moveX = movement.x;
     let moveY = movement.y;
 
@@ -47,9 +49,9 @@ export class PlayerController {
       this.pitch = -0.84 + Math.sin(this.autopilotTime * 0.6) * 0.025;
     } else {
       // Finger movement follows the camera: drag left looks left, drag right looks right.
-      this.yaw += look.x * 0.0064;
+      this.yaw += look.x * 0.0064 * this.sensitivity;
       // Let the field operator inspect the ground without flipping the horizon.
-      this.pitch = Math.max(-1.52, Math.min(1.1, this.pitch - look.y * 0.0054));
+      this.pitch = Math.max(-1.52, Math.min(1.1, this.pitch - look.y * 0.0054 * this.sensitivity));
     }
 
     const forward = new Vector3(Math.sin(this.yaw), 0, Math.cos(this.yaw));
