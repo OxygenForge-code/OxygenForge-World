@@ -41,16 +41,17 @@ const TEXTURES: Partial<Record<SolidBlock, string>> = {
   sandstone: "textures/sandstone.png",
   copper: "textures/copper.png",
   wood: "textures/wood.png",
+  torch: "textures/torch.png",
 };
 
 const COLORS: Record<SolidBlock, string> = {
-  soil: "#9b5d3b",
-  grass: "#71834a",
-  basalt: "#383634",
-  sandstone: "#c69a65",
-  copper: "#b86032",
-  wood: "#724b34",
-  torch: "#e4a34c",
+  soil: "#8e4d32",
+  grass: "#789653",
+  basalt: "#46505a",
+  sandstone: "#d7aa64",
+  copper: "#d57938",
+  wood: "#8d5233",
+  torch: "#ffb644",
 };
 
 function blockKey(x: number, y: number, z: number) {
@@ -101,7 +102,9 @@ export class GameWorld {
         texture.uScale = 1;
         texture.vScale = 1;
         texture.anisotropicFilteringLevel = 1;
+        texture.updateSamplingMode(Texture.NEAREST_SAMPLINGMODE);
         material.diffuseTexture = texture;
+        material.emissiveTexture = texture;
         // Keep mobile WebGL texture rendering stable on devices with limited shader support.
         material.emissiveColor = Color3.White();
       }

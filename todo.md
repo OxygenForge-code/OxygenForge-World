@@ -51,3 +51,11 @@
 - [x] Grafik kalitesi, çözünürlük ölçeği, FPS limiti, görüş mesafesi, FOV, hassasiyet ve HUD tercihlerini içeren ayarlar eklemek.
 - [x] Üst HUD gizleme düğmesinin görünürlük durumunu gerçek header bileşenine bağlamak.
 - [x] Ayarlar, performans profilleri, texture görünümü ve yeni APK'yı doğrulamak.
+
+## Görsel Olarak Yenilenen Texture Seti
+
+- [x] Bazalt, çimen/toprak, kumtaşı, oksit bakır, ahşap ve meşale için uyumlu voxel texture görselleri üretmek.
+- [x] Üretilen görselleri tileable kare texture'lara dönüştürüp yerel asset dizinine almak.
+- [x] Yeni texture setini Babylon materyallerine bağlayıp uzak asset bağımlılığını korumamak.
+- [x] Mobil sahnede renk dengesi, okunabilirlik ve APK içeriğini doğrulamak.
+- [x] Yenilenmiş texture'lı Android APK'yı üretmek ve proje sürümünü kaydetmek.

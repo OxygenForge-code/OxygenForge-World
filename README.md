@@ -18,7 +18,7 @@ Oyun yatay ekran için tasarlanmıştır. Sol taraftaki analog ped hareketi, sa�
 
 Kamera pitch aralığı aşağı yönde genişletilmiştir; saha operatörü zemini daha rahat inceleyebilir. Sefer ayarları paneli FOV, bakış hassasiyeti, çözünürlük ölçeği, 30/45/60 FPS limiti, görüş mesafesi, HUD opaklığı ve azaltılmış hareket tercihini cihazda saklar. `BATARYA`, `DENGE` ve `SAHA` profilleri bu grafik parametrelerini hızlıca değiştirir. Chunk değişmediği karelerde dünya akışı tekrar hesaplanmaz; blok düzenlemelerindeki mesh güncellemeleri de tek animation frame içinde birleştirilir.
 
-Bazalt, toprak/çimen, kumtaşı, bakır cevheri ve ahşap için 128×128 piksel-voxel texture materyalleri `client/public/textures/` altında tutulur ve Capacitor tarafından doğrudan APK asset'lerine kopyalanır. Oyun artık uzak texture URL'si kullanmaz; renk fallback'i yalnızca beklenmeyen yerel dosya hatalarına karşı son güvenlik katmanıdır.
+Bazalt, toprak/çimen, kumtaşı, oksit bakır, ahşap ve meşale için yapay görsel üretimle hazırlanan 256×256 piksel-voxel texture materyalleri `client/public/textures/` altında tutulur ve Capacitor tarafından doğrudan APK asset'lerine kopyalanır. Texture'lar soğuk arduvaz bazaltını, zeytin-altın çimeni, bal-kumtaşı katmanlarını ve turkuaz patinalı oksit bakırı birbirinden açık biçimde ayıracak renk aralıklarıyla hazırlanmıştır. Oyun uzak texture URL'si kullanmaz; renk fallback'i yalnızca beklenmeyen yerel dosya hatalarına karşı son güvenlik katmanıdır.
 
 ## Sonsuz Chunk Dünyası
 
