@@ -22,6 +22,8 @@ const DEFAULT_ACTIVE_RADIUS = 2;
 const MAX_HEIGHT = 12;
 const WORLD_SEED = 734_291;
 const SAVE_KEY = "oxygenforge-world-edits-v2";
+const TEXTURE_FACE_SCALE = 0.45;
+const MOBILE_ANISOTROPY = 4;
 // All texture bytes are bundled under client/public/textures and copied by Capacitor into the APK.
 const USE_LOCAL_TEXTURES = true;
 
@@ -98,11 +100,14 @@ export class GameWorld {
       material.emissiveColor = blockColor;
       const textureUrl = USE_LOCAL_TEXTURES ? TEXTURES[type] : undefined;
       if (textureUrl) {
-        const texture = new Texture(textureUrl, scene, true, false);
-        texture.uScale = 1;
-        texture.vScale = 1;
-        texture.anisotropicFilteringLevel = 1;
-        texture.updateSamplingMode(Texture.NEAREST_SAMPLINGMODE);
+        // Mipmaps + trilinear filtering keep distant terrain stable, while a smaller UV scale
+        // enlarges the authored texture detail on every cube face.
+        const texture = new Texture(textureUrl, scene, false, false, Texture.TRILINEAR_SAMPLINGMODE);
+        texture.uScale = TEXTURE_FACE_SCALE;
+        texture.vScale = TEXTURE_FACE_SCALE;
+        texture.wrapU = Texture.WRAP_ADDRESSMODE;
+        texture.wrapV = Texture.WRAP_ADDRESSMODE;
+        texture.anisotropicFilteringLevel = MOBILE_ANISOTROPY;
         material.diffuseTexture = texture;
         material.emissiveTexture = texture;
         // Keep mobile WebGL texture rendering stable on devices with limited shader support.

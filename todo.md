@@ -59,3 +59,11 @@
 - [x] Yeni texture setini Babylon materyallerine bağlayıp uzak asset bağımlılığını korumamak.
 - [x] Mobil sahnede renk dengesi, okunabilirlik ve APK içeriğini doğrulamak.
 - [x] Yenilenmiş texture'lı Android APK'yı üretmek ve proje sürümünü kaydetmek.
+
+## Texture Ölçeği ve Uzak Görünüm Kalitesi
+
+- [x] Texture tekrar ölçeğini blok yüzlerinde daha büyük ve okunur olacak şekilde ayarlamak.
+- [x] Uzak yüzeyler için mipmap, trilinear filtreleme ve anizotropik filtreleme dengesini iyileştirmek.
+- [x] Mobil kalite profillerinin texture filtreleme ve çözünürlük ölçeğiyle tutarlı kalmasını sağlamak.
+- [x] Yakın/uzak texture görünümü, kenar kırılması ve APK çıktısını doğrulamak.
+- [x] Görsel kalite iyileştirmeli APK'yı üretmek ve proje sürümünü kaydetmek.
